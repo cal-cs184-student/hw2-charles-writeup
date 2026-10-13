@@ -1,116 +1,654 @@
-<html>
-	<head>
-		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-		<style>
-			h1 {
-				text-align: center;
-			}
+<!DOCTYPE html>
+<html lang="en">
 
-			.container {
-				margin: 0 auto;
-				padding: 60px 20%;
-			}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Charles Xu | HW2 MeshEdit</title>
+    <style>
+        * {
+            box-sizing: border-box
+        }
 
-			figure {
-				text-align: center;
-			}
+        body {
+            margin: 0;
+            color: #262630;
+            background: #f4f3f0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 15px;
+            line-height: 1.48
+        }
 
-			img {
-				display: inline-block;
-			}
+        main {
+            max-width: 1030px;
+            margin: 40px auto;
+            background: white;
+            padding: 45px 64px
+        }
 
-			body {
-				font-family: 'Inter', sans-serif;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="container">
-		<h1>CS184/284A Fall 2026 Homework 2 Write-Up</h1>
-		<div style="text-align: center;">Names: </div>
+        .page {
+            padding: 0 0 35px;
+            margin: 0 0 35px;
+            border-bottom: 1px solid #ddd
+        }
 
-		<br>
+        h1,
+        h2,
+        h3 {
+            color: #482832;
+            line-height: 1.2
+        }
 
-		Link to webpage: (TODO) <a href="https://cs184.eecs.berkeley.edu/fa26">cs184.eecs.berkeley.edu/fa26</a>
+        h1 {
+            font-family: Georgia, serif;
+            font-weight: normal;
+            font-size: 42px;
+            margin: 4px 0 14px
+        }
 
-		<br>
-		
-		Link to GitHub repository: (TODO) <a href="https://cs184.eecs.berkeley.edu/fa26">cs184.eecs.berkeley.edu/fa26</a>
+        h2 {
+            font-size: 23px;
+            margin: 25px 0 12px
+        }
 
-		<figure>
-			<img src="assets/teapot.png" alt="Teapot" style="width:50%"/>
-			<figcaption>You can add images with captions!</figcaption>
-		</figure>
+        h3 {
+            font-size: 16px;
+            margin: 20px 0 8px
+        }
 
-		<!--
-		We've already added one heading per part, to make your write-up as navigable when grading. Please fit your write-up within these sections!
-		-->
+        p {
+            margin: 9px 0 12px
+        }
 
-		<h2>Overview</h2>
-		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
+        .eyebrow,
+        .section-label {
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            color: #706367;
+            font-weight: bold
+        }
 
-		<h2>Section I: Bezier Curves and Surfaces</h2>
+        .author {
+            font-size: 19px
+        }
 
-		<h3>Part 1: Bezier curves with 1D de Casteljau subdivision</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        .links,
+        .sources {
+            font-size: 12px
+        }
 
-		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
-		<div style="display: flex; flex-direction: column; align-items: center;">
-			<table style="width: 100%; text-align: center; border-collapse: collapse;">
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="assets/teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="assets/teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="assets/teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="assets/teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
-			</table>
-		</div>
+        a {
+            color: #70414e;
+            text-decoration: none
+        }
 
-		<h3>Part 2: Bezier surfaces with separable 1D de Casteljau</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        a:hover {
+            text-decoration: underline
+        }
 
-		<h2>Section II: Triangle Meshes and Half-Edge Data Structure</h2>
+        code {
+            font-size: .9em;
+            background: #f5f2f3;
+            padding: 1px 3px;
+            border-radius: 3px
+        }
 
-		<h3>Part 3: Area-weighted vertex normals</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        .grid {
+            display: grid;
+            gap: 16px;
+            align-items: start;
+            margin: 15px 0
+        }
 
-		<h3>Part 4: Edge flip</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        .two {
+            grid-template-columns: repeat(2, 1fr)
+        }
 
-		<h3>Part 5: Edge split</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        .three {
+            grid-template-columns: repeat(3, 1fr)
+        }
 
-		<h3>Part 6: Loop subdivision for mesh upsampling</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        figure {
+            margin: 15px auto;
+            max-width: 100%;
+            break-inside: avoid
+        }
 
-		<h2>(Optional) Section III: Potential Extra Credit - Art Competition: Model something Creative</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        .grid figure {
+            margin: 0
+        }
 
-		<h2>Additional Notes (please remove)</h2>
-		<ul>
-			<li>You can also add code if you'd like as so: <code>code code code</code></li>
-			<li>If you'd like to add math equations, 
-				<ul>
-					<li>You can write inline equations like so: \( a^2 + b^2 = c^2 \)</li>
-					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
-				</ul>
-			</li>
-		</ul>
-		</div>
-	</body>
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: black;
+            border: 1px solid #e0d8dc
+        }
+
+        figcaption {
+            font-size: 11px;
+            line-height: 1.3;
+            padding-top: 6px;
+            color: #59515a
+        }
+
+        .equation {
+            text-align: center;
+            background: #f6f3f4;
+            padding: 11px;
+            margin: 13px 0;
+            font-family: Georgia, serif;
+            font-size: 17px
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 12px;
+            margin: 14px 0
+        }
+
+        th,
+        td {
+            padding: 8px 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd
+        }
+
+        th {
+            background: #f6f3f4
+        }
+
+        header {
+            margin-bottom: 22px
+        }
+
+        section:nth-child(2)>figure {
+            max-width: 540px
+        }
+
+        .boundary-subdivision>figure {
+            max-width: 430px
+        }
+
+        @media(max-width:720px) {
+            main {
+                margin: 0;
+                padding: 24px
+            }
+
+            .three {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            h1 {
+                font-size: 32px
+            }
+        }
+
+        @page {
+            size: letter;
+            margin: 0.45in 0.5in 0.45in
+        }
+
+        @media print {
+            body {
+                background: white;
+                font-size: 10.5pt;
+                line-height: 1.38;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact
+            }
+
+            main {
+                max-width: none;
+                margin: 0;
+                padding: 0
+            }
+
+            .page {
+                margin: 0;
+                padding: 0;
+                border: 0;
+                break-after: page
+            }
+
+            .page:last-child {
+                break-after: auto
+            }
+
+            h1 {
+                font-size: 28pt
+            }
+
+            h2 {
+                font-size: 16pt;
+                margin: 16px 0 9px
+            }
+
+            h3 {
+                font-size: 12pt;
+                margin: 13px 0 6px
+            }
+
+            p {
+                margin: 6px 0 9px
+            }
+
+            .grid {
+                gap: 12px;
+                margin: 11px 0
+            }
+
+            .three {
+                grid-template-columns: repeat(3, 1fr)
+            }
+
+            figcaption {
+                font-size: 8pt
+            }
+
+            figure {
+                margin: 10px auto
+            }
+
+            .equation {
+                padding: 7px;
+                margin: 9px 0;
+                font-size: 12pt
+            }
+
+            table {
+                font-size: 9pt;
+                margin: 9px 0
+            }
+
+            td,
+            th {
+                padding: 6px 8px
+            }
+
+            .links,
+            .sources {
+                font-size: 8.5pt
+            }
+
+            header {
+                margin-bottom: 14px
+            }
+
+            section:nth-child(2)>figure {
+                max-width: 395px
+            }
+
+            .boundary-subdivision>figure {
+                max-width: 315px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section class="page">
+            <header>
+                <p class="eyebrow">CS184 / 284A · FALL 2026</p>
+                <h1>Homework 2: MeshEdit</h1>
+                <p class="author">Charles Xu</p>
+                <p class="links">Webpage: <a
+                        href="https://cal-cs184-student.github.io/hw2-charles-writeup/">cal-cs184-student.github.io/hw2-charles-writeup/</a><br>Write-up
+                    repository: <a
+                        href="https://github.com/cal-cs184-student/hw2-charles-writeup">github.com/cal-cs184-student/hw2-charles-writeup</a>
+                </p>
+            </header>
+            <h2>Overview</h2>
+            <p>This implementation evaluates Bezier curves and surfaces, computes area-weighted vertex normals, edits
+                triangle connectivity with edge flips and splits, and combines those local operations into Loop
+                subdivision. Boundary edge splitting and subdivision are also implemented as extra credit extensions.
+            </p>
+            <p>The cube experiments show that connectivity matters even when two input meshes have the same surface: a
+                symmetric triangulation gives a symmetric subdivided result.</p>
+            <p class="section-label">Section I: Bezier Curves and Surfaces</p>
+            <h2>Part 1: Bezier curves with 1D de Casteljau subdivision</h2>
+            <p>Each call to <code>evaluateStep</code> interpolates adjacent points and returns one fewer point.
+                Repeating this operation five times for six control points evaluates a degree-five curve. The
+                implementation builds a new vector at each level, preserving the input.</p>
+            <div class="equation">p<sub>i</sub><sup>(k+1)</sup> = (1 − t)p<sub>i</sub><sup>(k)</sup> +
+                tp<sub>i+1</sub><sup>(k)</sup></div>
+            <p>The custom control points are (0.15, 0.25), (0.30, 0.80), (0.55, 0.90), (0.75, 0.15), (1.00, 0.30), and
+                (1.25, 0.75). Below, <strong>t = 0.5</strong>. White marks the control polygon, blue marks intermediate
+                levels, green shows the completed curve, and red marks the final evaluated point.</p>
+            <div class="grid three">
+                <figure><a href="assets/curve-level-0.png"><img src="assets/curve-level-0.png"
+                            alt="Level 0: 6 points in the newest level."></a>
+                    <figcaption>Level 0: 6 points in the newest level.</figcaption>
+                </figure>
+                <figure><a href="assets/curve-level-1.png"><img src="assets/curve-level-1.png"
+                            alt="Level 1: 5 points in the newest level."></a>
+                    <figcaption>Level 1: 5 points in the newest level.</figcaption>
+                </figure>
+                <figure><a href="assets/curve-level-2.png"><img src="assets/curve-level-2.png"
+                            alt="Level 2: 4 points in the newest level."></a>
+                    <figcaption>Level 2: 4 points in the newest level.</figcaption>
+                </figure>
+                <figure><a href="assets/curve-level-3.png"><img src="assets/curve-level-3.png"
+                            alt="Level 3: 3 points in the newest level."></a>
+                    <figcaption>Level 3: 3 points in the newest level.</figcaption>
+                </figure>
+                <figure><a href="assets/curve-level-4.png"><img src="assets/curve-level-4.png"
+                            alt="Level 4: 2 points in the newest level."></a>
+                    <figcaption>Level 4: 2 points in the newest level.</figcaption>
+                </figure>
+                <figure><a href="assets/curve-level-5.png"><img src="assets/curve-level-5.png"
+                            alt="Level 5: 1 point in the newest level."></a>
+                    <figcaption>Level 5: 1 point in the newest level.</figcaption>
+                </figure>
+            </div>
+        </section>
+        <section class="page">
+            <h2>Part 1: Modified curve</h2>
+            <p>Moving the second control point to (0.30, 0.65) and the fourth to (0.78, 0.30) lowers the upper bend and
+                raises the lower bend. Changing <strong>t from 0.5 to 0.7</strong> moves the evaluated point farther
+                along the curve. The same interpolation code updates every intermediate level.</p>
+            <figure><a href="assets/curve-modified.png"><img src="assets/curve-modified.png"
+                        alt="Modified control points, t = 0.7; all five interpolation levels are shown."></a>
+                <figcaption>Modified control points, t = 0.7; all five interpolation levels are shown.</figcaption>
+            </figure>
+            <h2>Part 2: Bezier surfaces with separable 1D de Casteljau</h2>
+            <p><code>evaluate1D</code> repeatedly calls the 3D interpolation step until one point remains. To evaluate a
+                patch at (u, v), <code>evaluate</code> first evaluates each row at u, then evaluates the resulting list
+                of row points at v. This implements a tensor-product surface using the same one-dimensional algorithm
+                twice.</p>
+            <p>The supplied tessellator samples each patch on a 16 × 16 grid. The screenshot below comes from
+                <strong>bez/teapot.bez</strong>, with patch boundaries merged using the supplied loader. It is separate
+                from the COLLADA teapot used in the mesh experiments.</p>
+            <figure><a href="assets/bezier-teapot.png"><img src="assets/bezier-teapot.png"
+                        alt="The Bezier teapot evaluated by the implementation and displayed with triangle edges."></a>
+                <figcaption>The Bezier teapot evaluated by the implementation and displayed with triangle edges.
+                </figcaption>
+            </figure>
+        </section>
+        <section class="page">
+            <p class="section-label">Section II: Triangle Meshes and Half-Edge Data Structure</p>
+            <h2>Part 3: Area-weighted vertex normals</h2>
+            <p>Starting at a vertex's half-edge, the implementation walks the incident ring using
+                <code>twin()-&gt;next()</code>. For each real triangle, it takes the cross product of two edge vectors.
+                Its magnitude is twice the triangle area, so summing these unnormalized cross products automatically
+                weights larger triangles more heavily. The sum is normalized once, after the traversal.</p>
+            <div class="equation">n<sub>v</sub> = normalize(Σ<sub>f incident to v</sub> (p<sub>1</sub> − p<sub>0</sub>)
+                × (p<sub>2</sub> − p<sub>0</sub>))</div>
+            <p>The winding order determines the normal's direction. Virtual boundary faces are skipped, and a zero-area
+                sum returns a zero vector to avoid division by zero. All traversal iterators in this method are const.
+            </p>
+            <div class="grid two">
+                <figure><a href="assets/teapot-flat.png"><img src="assets/teapot-flat.png"
+                            alt="dae/teapot.dae: flat face normals."></a>
+                    <figcaption>dae/teapot.dae: flat face normals.</figcaption>
+                </figure>
+                <figure><a href="assets/teapot-smooth.png"><img src="assets/teapot-smooth.png"
+                            alt="Same mesh and camera: area-weighted vertex normals."></a>
+                    <figcaption>Same mesh and camera: area-weighted vertex normals.</figcaption>
+                </figure>
+            </div>
+            <p>The body bands and faceted lid in the flat image become continuous shading in the smooth image. The
+                silhouette and triangle count stay fixed: the change comes from interpolated normals, rather than added
+                geometry. The supplied diffuse shader is used in both images, with the renderer's Q toggle changing the
+                normals.</p>
+        </section>
+        <section class="page">
+            <h2>Part 4: Edge flip</h2>
+            <p>For adjacent triangles ABC and BAD sharing AB, flipping AB replaces it with CD. The implementation
+                gathers the six local half-edges before writing any pointers, then rewires them into CDB and DCA. It
+                resets the representative half-edges of the four vertices, the two faces, and the shared edge. The four
+                outside twin connections remain attached to their original edges.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Before</th>
+                        <th>After</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ABC and BAD; shared edge AB</td>
+                        <td>CDB and DCA; shared edge CD</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">No vertices, edges, faces, or half-edges are created or deleted.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Boundary edges return immediately because there is no second real triangle to exchange. A flip touches a
+                fixed-size neighborhood, so its work is constant in the total mesh size.</p>
+            <div class="grid two">
+                <figure><a href="assets/teapot-before.png"><img src="assets/teapot-before.png"
+                            alt="Original teapot connectivity."></a>
+                    <figcaption>Original teapot connectivity.</figcaption>
+                </figure>
+                <figure><a href="assets/teapot-flips.png"><img src="assets/teapot-flips.png"
+                            alt="After 12 edge flips on the front body."></a>
+                    <figcaption>After 12 edge flips on the front body.</figcaption>
+                </figure>
+            </div>
+            <div class="grid two">
+                <figure><a href="assets/teapot-detail-before.png"><img src="assets/teapot-detail-before.png"
+                            alt="Closer view of the original front-body triangles."></a>
+                    <figcaption>Closer view of the original front-body triangles.</figcaption>
+                </figure>
+                <figure><a href="assets/teapot-detail-flips.png"><img src="assets/teapot-detail-flips.png"
+                            alt="Same closer view after the flips."></a>
+                    <figcaption>Same closer view after the flips.</figcaption>
+                </figure>
+            </div>
+            <h3>Debugging and verification</h3>
+            <p>The validation harness checks twin reciprocity, edge endpoints, face cycles, and every vertex's complete
+                incident ring. Flipping the same diagonal 30 times passes these checks after every operation and
+                preserves all element counts. Gathering the old neighborhood first avoids accidentally following a
+                pointer that has already been rewired.</p>
+        </section>
+        <section class="page">
+            <h2>Part 5: Edge split</h2>
+            <p>An interior split inserts M at the midpoint of AB, then joins M to C and D. The two original triangles
+                become four. The implementation allocates one vertex, three edges, six half-edges, and two faces, then
+                explicitly sets each local half-edge's next, twin, origin, edge, and face. Face and vertex
+                representatives are reassigned to valid outgoing half-edges.</p>
+            <p>The original edge and its second half are marked old. The spokes MC and MD are marked new. The returned
+                vertex points along one half of AB; this makes its representative consistent with the specification and
+                gives subdivision the right edge classification.</p>
+            <div class="grid three">
+                <figure><a href="assets/teapot-before.png"><img src="assets/teapot-before.png"
+                            alt="Original teapot."></a>
+                    <figcaption>Original teapot.</figcaption>
+                </figure>
+                <figure><a href="assets/teapot-splits.png"><img src="assets/teapot-splits.png"
+                            alt="After 12 midpoint splits."></a>
+                    <figcaption>After 12 midpoint splits.</figcaption>
+                </figure>
+                <figure><a href="assets/teapot-mixed.png"><img src="assets/teapot-mixed.png"
+                            alt="The same splits followed by 8 flips."></a>
+                    <figcaption>The same splits followed by 8 flips.</figcaption>
+                </figure>
+            </div>
+            <div class="grid three">
+                <figure><a href="assets/teapot-detail-before.png"><img src="assets/teapot-detail-before.png"
+                            alt="Original front-body region."></a>
+                    <figcaption>Original front-body region.</figcaption>
+                </figure>
+                <figure><a href="assets/teapot-detail-splits.png"><img src="assets/teapot-detail-splits.png"
+                            alt="New midpoint vertices and spoke edges."></a>
+                    <figcaption>New midpoint vertices and spoke edges.</figcaption>
+                </figure>
+                <figure><a href="assets/teapot-detail-mixed.png"><img src="assets/teapot-detail-mixed.png"
+                            alt="Split topology followed by local flips."></a>
+                    <figcaption>Split topology followed by local flips.</figcaption>
+                </figure>
+            </div>
+            <p>Splitting alone preserves the original triangle surfaces: each new point lies on an original edge, and
+                each spoke lies within its original triangle. Combining splits and flips changes the triangulation; on a
+                curved surface, replacing a diagonal can also change the piecewise planar surface locally.</p>
+            <h3>Checks that expose pointer mistakes</h3>
+            <p>An interior split must increase counts by ΔV = 1, ΔE = 3, ΔF = 2, and ΔH = 6. Tests verify those changes
+                and check that the new vertex is the exact midpoint. A separate stress test interleaves 300 randomly
+                selected valid flips and splits, validates the entire topology after each edit, and then subdivides the
+                result.</p>
+        </section>
+        <section class="page">
+            <h2>Part 5 extra credit: Boundary edge splitting</h2>
+            <p><strong>Boundary edge splitting is implemented.</strong> A boundary edge has one real triangle and one
+                virtual boundary face. Splitting it creates two real triangles and inserts one extra half-edge into the
+                existing virtual loop. This adds one vertex, two edges, four half-edges, and one real face; the number
+                of boundary components is unchanged.</p>
+            <p>The implementation chooses the real side of the edge even if the edge's representative points to the
+                virtual side. Inserting the new boundary half-edge immediately after the old one avoids a search for the
+                boundary predecessor, keeping the operation constant time.</p>
+            <div class="grid two">
+                <figure><a href="assets/boundary-before.png"><img src="assets/boundary-before.png"
+                            alt="Open square: V = 4, E = 5, F = 2."></a>
+                    <figcaption>Open square: V = 4, E = 5, F = 2.</figcaption>
+                </figure>
+                <figure><a href="assets/boundary-split.png"><img src="assets/boundary-split.png"
+                            alt="After one boundary split: V = 5, E = 7, F = 3."></a>
+                    <figcaption>After one boundary split: V = 5, E = 7, F = 3.</figcaption>
+                </figure>
+            </div>
+        </section>
+        <section class="page">
+            <h2>Part 6: Loop subdivision for mesh upsampling</h2>
+            <p>The implementation separates computing positions from changing connectivity. First it stores updated
+                positions for all old vertices and all original edges. It then splits a saved list of original-edge
+                iterators, flips new spoke edges that connect an old vertex to a new vertex, and finally copies the
+                stored positions into the mesh.</p>
+            <p>For an interior vertex of degree n, the weight β is 3/16 when n = 3, and 3/(8n) otherwise. For an
+                interior edge AB with opposite vertices C and D, the new edge vertex uses the second equation below.</p>
+            <div class="equation">p′ = (1 − nβ)p + βΣp<sub>neighbor</sub><br>m′ = ⅜(A + B) + ⅛(C + D)</div>
+            <p>Every weight is evaluated on the original geometry. The saved edge list prevents splitting newly appended
+                edges. Marking both halves of original edges old prevents flipping those edges during the 4-to-1
+                construction.</p>
+            <div class="grid two">
+                <figure><a href="assets/cube-loop-0.png"><img src="assets/cube-loop-0.png"
+                            alt="Original cube after 0 Loop iterations: 12 triangles."></a>
+                    <figcaption>Original cube after 0 Loop iterations: 12 triangles.</figcaption>
+                </figure>
+                <figure><a href="assets/cube-loop-1.png"><img src="assets/cube-loop-1.png"
+                            alt="Original cube after 1 Loop iteration: 48 triangles."></a>
+                    <figcaption>Original cube after 1 Loop iteration: 48 triangles.</figcaption>
+                </figure>
+                <figure><a href="assets/cube-loop-2.png"><img src="assets/cube-loop-2.png"
+                            alt="Original cube after 2 Loop iterations: 192 triangles."></a>
+                    <figcaption>Original cube after 2 Loop iterations: 192 triangles.</figcaption>
+                </figure>
+                <figure><a href="assets/cube-loop-3.png"><img src="assets/cube-loop-3.png"
+                            alt="Original cube after 3 Loop iterations: 768 triangles."></a>
+                    <figcaption>Original cube after 3 Loop iterations: 768 triangles.</figcaption>
+                </figure>
+            </div>
+            <p>Repeated averaging rounds the sharp corners and edges, and shrinks the coarse cube. The image series uses
+                the same camera throughout. The faceting becomes finer, but the diagonals of the original faces
+                influence the shape and cause asymmetry.</p>
+        </section>
+        <section class="page">
+            <h2>Part 6: Making the cube subdivide symmetrically</h2>
+            <p>The supplied cube triangulates each square with one diagonal. Different corners see different incident
+                neighbors and degrees, so the Loop stencils do not respect all of the cube's reflection symmetries.
+                Increasing the subdivision level preserves the influence of this asymmetric coarse connectivity.</p>
+            <p>Preprocessing splits the six face diagonals at their midpoints. Each square becomes four triangles around
+                a face center. All eight cube corners now have degree six, and all six face centers have degree four.
+                These matching neighborhoods restore the symmetry of the connectivity without changing the initial
+                cube's surface. This preprocessing needs six splits; flips are unnecessary.</p>
+            <div class="grid two">
+                <figure><a href="assets/cube-symmetric-0.png"><img src="assets/cube-symmetric-0.png"
+                            alt="Six face diagonals split; 24 triangles."></a>
+                    <figcaption>Six face diagonals split; 24 triangles.</figcaption>
+                </figure>
+                <figure><a href="assets/cube-symmetric-1.png"><img src="assets/cube-symmetric-1.png"
+                            alt="Symmetric input after 1 Loop iteration: 96 triangles."></a>
+                    <figcaption>Symmetric input after 1 Loop iteration: 96 triangles.</figcaption>
+                </figure>
+                <figure><a href="assets/cube-symmetric-2.png"><img src="assets/cube-symmetric-2.png"
+                            alt="Symmetric input after 2 Loop iterations: 384 triangles."></a>
+                    <figcaption>Symmetric input after 2 Loop iterations: 384 triangles.</figcaption>
+                </figure>
+                <figure><a href="assets/cube-symmetric-3.png"><img src="assets/cube-symmetric-3.png"
+                            alt="Symmetric input after 3 Loop iterations: 1536 triangles."></a>
+                    <figcaption>Symmetric input after 3 Loop iterations: 1536 triangles.</figcaption>
+                </figure>
+            </div>
+            <h3>Measured reflection symmetry</h3>
+            <p>For every vertex, reflect its position across each coordinate plane and find the nearest mesh vertex. The
+                maximum of those distances is the residual below. The source cube already contains roughly
+                10<sup>−6</sup> coordinate noise.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Loop iterations</th>
+                        <th>Original cube residual</th>
+                        <th>Preprocessed cube residual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>0.414578</td>
+                        <td>1.25 × 10<sup>−6</sup></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>0.234375</td>
+                        <td>1.16 × 10<sup>−6</sup></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>0.191886</td>
+                        <td>1.14 × 10<sup>−6</sup></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section class="page">
+            <h2>Part 6: Reducing rounding with pre-splitting</h2>
+            <p>A separate experiment performs one linear 4-to-1 refinement before any Loop smoothing. It uses midpoint
+                splits and the same spoke flips, while leaving original vertices fixed. This adds local samples without
+                changing the input surface. Subsequent averaging then operates over smaller neighborhoods.</p>
+            <div class="grid two">
+                <figure><a href="assets/cube-presplit-0.png"><img src="assets/cube-presplit-0.png"
+                            alt="Linear pre-refinement: 48 triangles, original cube surface."></a>
+                    <figcaption>Linear pre-refinement: 48 triangles, original cube surface.</figcaption>
+                </figure>
+                <figure><a href="assets/cube-presplit-3.png"><img src="assets/cube-presplit-3.png"
+                            alt="Three Loop iterations afterward: 3,072 triangles."></a>
+                    <figcaption>Three Loop iterations afterward: 3,072 triangles.</figcaption>
+                </figure>
+            </div>
+            <div class="grid two">
+                <figure><a href="assets/cube-loop-3.png"><img src="assets/cube-loop-3.png"
+                            alt="Three Loop iterations on the original coarse cube."></a>
+                    <figcaption>Three Loop iterations on the original coarse cube.</figcaption>
+                </figure>
+                <figure><a href="assets/cube-presplit-3.png"><img src="assets/cube-presplit-3.png"
+                            alt="Same camera and smoothing count, with pre-refinement."></a>
+                    <figcaption>Same camera and smoothing count, with pre-refinement.</figcaption>
+                </figure>
+            </div>
+            <p>The pre-refined result retains broader flat face regions and a more boxlike silhouette. The maximum
+                absolute coordinate after three smoothing rounds is 0.883789 for the coarse input and about 1.000000 for
+                the pre-refined input. This comparison uses different initial resolutions; it demonstrates how a smaller
+                stencil reduces shrinkage, rather than a change to the Loop weights. Pre-splitting reduces rounding but
+                does not create a permanent crease.</p>
+        </section>
+        <section class="page boundary-subdivision">
+            <h2>Part 6 extra credit: Loop subdivision on meshes with boundaries</h2>
+            <p><strong>Loop subdivision on meshes with boundaries is also implemented.</strong> New boundary edge
+                vertices use the midpoint of their endpoints. Existing boundary vertices use the two neighbors along the
+                boundary:</p>
+            <div class="equation">p′ = ¾p + ⅛(p<sub>left</sub> + p<sub>right</sub>)</div>
+            <figure><a href="assets/boundary-loop.png"><img src="assets/boundary-loop.png"
+                        alt="One Loop iteration after the boundary split: 3 real triangles become 12; the open boundary remains a single loop."></a>
+                <figcaption>One Loop iteration after the boundary split: 3 real triangles become 12; the open boundary
+                    remains a single loop.</figcaption>
+            </figure>
+        </section>
+    </main>
+</body>
+
 </html>
